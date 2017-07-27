@@ -10,7 +10,11 @@ class PostController extends Controller
     public function index()
     {
         // respond to GET /posts
-        return view('posts.index');
+
+        $posts = Post::latest()->get();
+
+
+        return view('posts.index', compact('posts'));
     }
 
     public function create()
@@ -23,12 +27,19 @@ class PostController extends Controller
     {
         // respond to POST /posts
 
+        $this->validate(request(), [
+           'title' => 'required',
+           'body'  => 'required'
+        ]);
+
+
         Post::create([
 
             'title' => request('title'),
             'body'  => request('body'),
             'author'=> 'Jose',
             'user_id' => 1
+
         ]);
 
         return redirect('/');
@@ -47,10 +58,11 @@ class PostController extends Controller
         // respond to PATCH /posts/id
     }
 
-    public function show($id)
+    public function show(Post $post)
     {
 
         // respond to GET /posts/id
+        return view("posts.show",compact("post"));
     }
 
     public function destroy($id)

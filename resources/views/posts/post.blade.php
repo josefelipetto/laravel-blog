@@ -4,7 +4,7 @@
             {{ $post->title  }}
         </a>
     </h2>
-    <p class="blog-post-meta">January 1, 2014{{ $post->created_at->toFormattedDateString() }} </p>
+    <p class="blog-post-meta">{{ $post->created_at->toFormattedDateString() }} </p>
 
     {{ $post->body }}
 
